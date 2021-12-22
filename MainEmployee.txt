@@ -1,0 +1,607 @@
+import java.util.*;
+import java.util.Date;
+abstract class Employee {
+	protected int yr;
+	private int i,len,digit,ch;
+	protected String Emp_name,Address,Mail_id,str;
+	protected double Emp_id,mobile_no;
+	protected float bp,da,hra,pf,scf,net_sal,gross_sal;
+	Employee(){
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter name:");
+		Emp_name=sc.nextLine();
+		System.out.println("Enter Address:");
+		Address=sc.nextLine();
+		System.out.print("Enter Mail-ID:");
+		Mail_id=sc.nextLine();
+		System.out.print("Enter ID:");
+		Emp_id=sc.nextDouble();
+		System.out.print("Enter Mobile No.:");
+		mobile_no=sc.nextDouble();
+		System.out.print("Enter Salery:");
+		bp=sc.nextFloat();
+		Date d=new Date();
+		str=d.toString();
+		len=str.length();
+		for(i=len-4;i<len;i++){
+			digit=str.charAt(i);
+			digit=digit-48;
+			yr=yr*10+digit;
+		}
+	}
+	public void calc() {
+		da=bp*97/100;
+		hra=bp*10/100;
+		pf=bp*12/100;
+		scf=bp*0.1f/100;
+		gross_sal=bp+da+hra;
+		net_sal=gross_sal-pf-scf;
+	}
+	public void edit() {
+		Scanner sc=new Scanner(System.in);
+		System.out.print("1.Name\n2.Address\n3.ID\n4.Contact Number\n5.Email-ID\n6.Back to menu\nEnter choice:");
+		ch=sc.nextInt();
+		if(ch==1) {
+			System.out.print("Enter new Name:");
+			Emp_name=sc.nextLine();
+		}
+		else if(ch==2) {
+			System.out.println("Enter new Address:");
+			Address=sc.nextLine();
+		}
+		else if(ch==3) {
+			System.out.print("Enter new ID :");
+			Emp_id=sc.nextDouble();
+		}
+		else if(ch==4) {
+			System.out.print("Enter new Contact Number: ");
+			mobile_no=sc.nextDouble();
+		}
+		else if(ch==5) {
+			System.out.print("Enter new Email-ID:");
+			Mail_id=sc.next();
+		}
+		else if(ch==6) {
+		}
+		else System.out.println("Invalid choice");
+	}
+	abstract public void paySlip();	
+	abstract public void view();
+}
+
+
+class AssistantProjectManager extends Employee {
+	private int cl=10,el=10,temp,digit,choice,day,len,i;
+	private String y;
+	public boolean check(double id) {
+		if(id==this.Emp_id) return true;
+		else return false;
+	}
+	public void paySlip() {
+		System.out.println("Name :"+Emp_name+"\nID :"+Emp_id+"\n PAY SLIP");
+		System.out.println("BP \t\t : "+bp+"\nDA \t\t : "+da+"\nHRA \t\t : "+hra+"\n----------------------------------\nGross Salery \t : "+gross_sal+"\nPF \t\t : "+pf+"\nStaff Club Fund : "+scf+"\n----------------------------------\nNet Salery\t : "+net_sal);
+	}
+	public void view() {
+		System.out.println("Name : "+Emp_name+"\t ID : "+Emp_id+"\nAddress : "+Address+"\nContact Number : "+mobile_no+"\t Email-ID : "+Mail_id);
+	}
+	public void Leave() {
+		Date d1=new Date();
+		y=d1.toString();
+		len=y.length();
+		Scanner sc=new Scanner(System.in);
+		for(i=len-4;i<len;i++){
+			digit=y.charAt(i);
+			digit=digit-48;
+			temp=temp*10+digit;
+		}
+		if(temp==yr) {
+			System.out.print("1.Casual Leave \n2.Earned leave\n3.Back to menu\nEnter Choice:");
+			choice=sc.nextInt();
+			switch(choice) {
+			case 1:System.out.print("Enter no.of days:");
+			day=sc.nextInt();
+			if(cl-day>=0) {
+				cl=cl-day;
+				System.out.println("Leave Granted\t Total no. of leaves left:"+cl);
+			}
+			else System.out.println("Request exceeds the no. of leaves available");
+			break;
+			case 2:System.out.print("Enter no.of days:");
+			day=sc.nextInt();
+			if(el-day>=0) {
+				el=el-day;
+				System.out.println("Leave Granted\t Total no. of leaves left:"+el);
+			}
+			else System.out.println("Request exceeds the no. of leaves available");
+			break;
+			case 3:break;
+			default:System.out.println("Invalid choice");
+			}
+		}
+		else {
+			cl=10;
+			el=el+(temp-yr)*10;
+			System.out.print("1.Casual Leave \n2.Earned leave\n3.Back to menu\nEnter Choice:");
+			choice=sc.nextInt();
+			switch(choice) {
+			case 1:System.out.print("Enter no.of days:");
+			day=sc.nextInt();
+			if(cl-day>=0) {
+				cl=cl-day;
+				System.out.println("Leave Granted\t Total no. of leaves left:"+cl);
+			}
+			else System.out.println("Request exceeds the no. of leaves available");
+			break;
+			case 2:System.out.print("Enter no.of days:");
+			day=sc.nextInt();
+			if(el-day>=0) {
+				el=el-day;
+				System.out.println("Leave Granted\t Total no. of leaves left:"+el);
+			}
+			else System.out.println("Request exceeds the no. of leaves available");
+			break;
+			case 3:break;
+			default:System.out.println("Invalid choice");
+			}
+		}
+	}
+}
+
+class Programmer extends Employee {
+	private int cl=10,el=10,temp,digit,choice,day,len,i;
+	private String y;
+	public boolean check(double id) {
+		if(id==this.Emp_id) return true;
+		else return false;
+	}
+	public void paySlip() {
+		System.out.println("Name :"+Emp_name+"\nID :"+Emp_id+"\n PAY SLIP");
+		System.out.println("BP \t\t : "+bp+"\nDA \t\t : "+da+"\nHRA \t\t : "+hra+"\n----------------------------------\nGross Salery \t : "+gross_sal+"\nPF \t\t : "+pf+"\nStaff Club Fund : "+scf+"\n----------------------------------\nNet Salery\t : "+net_sal);
+	}
+	public void view() {
+		System.out.println("Name : "+Emp_name+"\t ID : "+Emp_id+"\nAddress : "+Address+"\nContact Number : "+mobile_no+"\t Email-ID : "+Mail_id);
+	}
+	public void Leave() {
+		Date d1=new Date();
+		y=d1.toString();
+		len=y.length();
+		Scanner sc=new Scanner(System.in);
+		for(i=-4;i<len;i++){
+			digit=y.charAt(i);
+			digit=digit-48;
+			temp=temp*10+digit;
+		}
+		if(temp==yr) {
+			System.out.print("1.Casual Leave \n2.Earned leave\n3.Back to menu\nEnter Choice:");
+			choice=sc.nextInt();
+			switch(choice) {
+			case 1:System.out.print("Enter no.of days:");
+			day=sc.nextInt();
+			if(cl-day>=0) {
+				cl=cl-day;
+				System.out.println("Leave Granted\t Total no. of leaves left:"+cl);
+			}
+			else System.out.println("Request exceeds the no. of leaves available");
+			break;
+			case 2:System.out.print("Enter no.of days:");
+			day=sc.nextInt();
+			if(el-day>=0) {
+				el=el-day;
+				System.out.println("Leave Granted\t Total no. of leaves left:"+el);
+			}
+			else System.out.println("Request exceeds the no. of leaves available");
+			break;
+			case 3:break;
+			default:System.out.println("Invalid choice");
+			}
+		}
+		else {
+			cl=10;
+			el=el+(temp-yr)*10;
+			System.out.print("1.Casual Leave \n2.Earned leave\n3.Back to menu\nEnter Choice:");
+			choice=sc.nextInt();
+			switch(choice) {
+			case 1:System.out.print("Enter no.of days:");
+			day=sc.nextInt();
+			if(cl-day>=0) {
+				cl=cl-day;
+				System.out.println("Leave Granted\t Total no. of leaves left:"+cl);
+			}
+			else System.out.println("Request exceeds the no. of leaves available");
+			break;
+			case 2:System.out.print("Enter no.of days:");
+			day=sc.nextInt();
+			if(el-day>=0) {
+				el=el-day;
+				System.out.println("Leave Granted\t Total no. of leaves left:"+el);
+			}
+			else System.out.println("Request exceeds the no. of leaves available");
+			break;
+			case 3:break;
+			default:System.out.println("Invalid choice");
+			}
+		}
+	}	
+}
+
+class ProjectManager extends Employee {
+	private int cl=10,el=10,temp,digit,choice,day,len,i;
+	private String y;
+	public boolean check(double id) {
+		if(id==this.Emp_id) return true;
+		else return false;
+	}
+	public void paySlip() {
+		System.out.println("Name :"+Emp_name+"\nID :"+Emp_id+"\n PAY SLIP");
+		System.out.println("BP \t\t : "+bp+"\nDA \t\t : "+da+"\nHRA \t\t : "+hra+"\n----------------------------------\nGross Salery \t : "+gross_sal+"\nPF \t\t : "+pf+"\nStaff Club Fund : "+scf+"\n----------------------------------\nNet Salery\t : "+net_sal);
+	}
+	public void view() {
+		System.out.println("Name : "+Emp_name+"\t ID : "+Emp_id+"\nAddress : "+Address+"\nContact Number : "+mobile_no+"\t Email-ID : "+Mail_id);
+	}
+	public void Leave() {
+		Date d1=new Date();
+		y=d1.toString();
+		len=y.length();
+		Scanner sc=new Scanner(System.in);
+		for(i=len-4;i<len;i++){
+			digit=y.charAt(i);
+			digit=digit-48;
+			temp=temp*10+digit;
+		}
+		if(temp==yr) {
+			System.out.print("1.Casual Leave \n2.Earned leave\n3.Back to menu\nEnter Choice:");
+			choice=sc.nextInt();
+			switch(choice) {
+			case 1:System.out.print("Enter no.of days:");
+			day=sc.nextInt();
+			if(cl-day>=0) {
+				cl=cl-day;
+				System.out.println("Leave Granted\t Total no. of leaves left:"+cl);
+			}
+			else System.out.println("Request exceeds the no. of leaves available");
+			break;
+			case 2:System.out.print("Enter no.of days:");
+			day=sc.nextInt();
+			if(el-day>=0) {
+				el=el-day;
+				System.out.println("Leave Granted\t Total no. of leaves left:"+el);
+			}
+			else System.out.println("Request exceeds the no. of leaves available");
+			break;
+			case 3:break;
+			default:System.out.println("Invalid choice");
+			}
+		}
+		else {
+			cl=10;
+			el=el+(temp-yr)*10;
+			System.out.print("1.Casual Leave \n2.Earned leave\n3.Back to menu\nEnter Choice:");
+			choice=sc.nextInt();
+			switch(choice) {
+			case 1:System.out.print("Enter no.of days:");
+			day=sc.nextInt();
+			if(cl-day>=0) {
+				cl=cl-day;
+				System.out.println("Leave Granted\t Total no. of leaves left:"+cl);
+			}
+			else System.out.println("Request exceeds the no. of leaves available");
+			break;
+			case 2:System.out.print("Enter no.of days:");
+			day=sc.nextInt();
+			if(el-day>=0) {
+				el=el-day;
+				System.out.println("Leave Granted\t Total no. of leaves left:"+el);
+			}
+			else System.out.println("Request exceeds the no. of leaves available");
+			break;
+			case 3:break;
+			default:System.out.println("Invalid choice");
+			}
+		}
+	}
+}
+
+class TeamLeader extends Employee {
+	private int cl=10,el=10,temp,digit,choice,day,len,i;
+	private String y;
+	public boolean check(double id) {
+		if(id==this.Emp_id) return true;
+		else return false;
+	}
+	public void paySlip() {
+		System.out.println("Name :"+Emp_name+"\nID :"+Emp_id+"\n PAY SLIP");
+		System.out.println("BP \t\t : "+bp+"\nDA \t\t : "+da+"\nHRA \t\t : "+hra+"\n----------------------------------\nGross Salery \t : "+gross_sal+"\nPF \t\t : "+pf+"\nStaff Club Fund : "+scf+"\n----------------------------------\nNet Salery\t : "+net_sal);
+	}
+	public void view() {
+		System.out.println("Name : "+Emp_name+"\t ID : "+Emp_id+"\nAddress : "+Address+"\nContact Number : "+mobile_no+"\t Email-ID : "+Mail_id);
+	}
+	public void Leave() {
+		Date d1=new Date();
+		y=d1.toString();
+		len=y.length();
+		Scanner sc=new Scanner(System.in);
+		for(i=len-4;i<len;i++){
+			digit=y.charAt(i);
+			digit=digit-48;
+			temp=temp*10+digit;
+		}
+		if(temp==yr) {
+			System.out.print("1.Casual Leave \n2.Earned leave\n3.Back to menu\nEnter Choice:");
+			choice=sc.nextInt();
+			switch(choice) {
+			case 1:System.out.print("Enter no.of days:");
+			day=sc.nextInt();
+			if(cl-day>=0) {
+				cl=cl-day;
+				System.out.println("Leave Granted\t Total no. of leaves left:"+cl);
+			}
+			else System.out.println("Request exceeds the no. of leaves available");
+			break;
+			case 2:System.out.print("Enter no.of days:");
+			day=sc.nextInt();
+			if(el-day>=0) {
+				el=el-day;
+				System.out.println("Leave Granted\t Total no. of leaves left:"+el);
+			}
+			else System.out.println("Request exceeds the no. of leaves available");
+			break;
+			case 3:break;
+			default:System.out.println("Invalid choice");
+			}
+		}
+		else {
+			cl=10;
+			el=el+(temp-yr)*10;
+			System.out.print("1.Casual Leave \n2.Earned leave\n3.Back to menu\nEnter Choice:");
+			choice=sc.nextInt();
+			switch(choice) {
+			case 1:System.out.print("Enter no.of days:");
+			day=sc.nextInt();
+			if(cl-day>=0) {
+				cl=cl-day;
+				System.out.println("Leave Granted\t Total no. of leaves left:"+cl);
+			}
+			else System.out.println("Request exceeds the no. of leaves available");
+			break;
+			case 2:System.out.print("Enter no.of days:");
+			day=sc.nextInt();
+			if(el-day>=0) {
+				el=el-day;
+				System.out.println("Leave Granted\t Total no. of leaves left:"+el);
+			}
+			else System.out.println("Request exceeds the no. of leaves available");
+			break;
+			case 3:break;
+			default:System.out.println("Invalid choice");
+			}
+		}
+	}
+}
+
+public class MainEmployee {
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		int choice,ch,i=0,j=0,k=0,l=0,temp;
+		double id;
+		Programmer p[]=new Programmer[100];
+		TeamLeader tl[]=new TeamLeader[100];
+		ProjectManager pm[]=new ProjectManager[100];
+		AssistantProjectManager apm[]=new AssistantProjectManager[100];		
+		do {
+			System.out.print("1.Programmer\n2.Team Leader\n3.Project Manager\n4.Assistant Project Manager\n5.Exit\nEnter your field :");
+			choice=sc.nextInt();
+			switch(choice) {
+			case 1: do {
+					System.out.print("1.Add Programmer\n2.Generate Pay Slip\n3.Leave Application\n4.View Details\n5.Edit Details\n6.Back to main menu\nEnter your choice :");
+					ch=sc.nextInt();
+					switch(ch) {
+					case 1: if(i==100)
+								System.out.println("Sorry!! No more programmers can be added");
+							else {
+							p[i]=new Programmer();
+							i++;
+							break;
+							}
+					case 2: System.out.print("Enter Employee ID :");
+							id=sc.nextDouble();
+							for(temp=0;temp<=i;temp++) {
+								if(p[temp].check(id)) {
+									p[temp].calc();
+									p[temp].paySlip();
+									break;
+								}
+							}
+							if(temp>i) System.out.println("ID not found");
+							break;
+					case 3:System.out.print("Enter Employee ID :");
+							id=sc.nextDouble();
+							for(temp=0;temp<=i;temp++) {
+								if(p[temp].check(id)) {
+									p[temp].Leave();
+									break;
+								}
+							}
+							if(temp>i) System.out.println("ID not found");
+							break;
+					case 4: System.out.print("Enter Employee ID :");
+							id=sc.nextDouble();
+							for(temp=0;temp<=i;temp++) {
+								if(p[temp].check(id)) {
+									p[temp].view();
+									break;
+								}
+							}
+							if(temp>i) System.out.println("ID not found");
+							break;
+					case 5: System.out.print("Enter Employee ID :");
+							id=sc.nextDouble();
+							for(temp=0;temp<=i;temp++) {
+								if(p[temp].check(id)) {
+									p[temp].edit();
+									break;
+								}
+							}
+							if(temp>i) System.out.println("ID not found");
+							break;
+					case 6: break;
+					default:System.out.println("Invalid choice!!");
+					}
+					}while(ch!=6);
+					break;
+			case 2 :do {
+					System.out.print("1.Add Team Leader\n2.Generate Pay Slip\n3.Leave Application\n4.View Details\n5.Edit Details\n6.Back to main menu\nEnter your choice :");
+					ch=sc.nextInt();
+					switch(ch) {
+					case 1: if(i==100)
+								System.out.println("Sorry!! No more Team Leaders can be added");
+							else {
+									tl[j]=new TeamLeader();
+									j++;
+									break;
+								}
+					case 2: System.out.print("Enter Employee ID :");
+							id=sc.nextDouble();
+							for(temp=0;temp<=j;temp++) {
+								if(tl[temp].check(id)) {
+									tl[temp].calc();
+									tl[temp].paySlip();
+									break;
+								}
+							}
+							if(temp>i) System.out.println("ID not found");
+							break;
+					case 3:	System.out.print("Enter Employee ID :");
+							id=sc.nextDouble();
+							for(temp=0;temp<=i;temp++) {
+								if(tl[temp].check(id)) {
+									tl[temp].Leave();
+									break;
+								}
+							}
+							if(temp>i) System.out.println("ID not found");
+							break;
+					case 4: System.out.print("Enter Employee ID :");
+							id=sc.nextDouble();
+							for(temp=0;temp<=i;temp++) {
+								if(p[temp].check(id)) {
+									p[temp].view();
+									break;
+								}
+							}
+							if(temp>i) System.out.println("ID not found");
+							break;
+					case 5: System.out.print("Enter Employee ID :");
+							id=sc.nextDouble();
+							for(temp=0;temp<=i;temp++) {
+								if(p[temp].check(id)) {
+									p[temp].edit();
+									break;
+								}
+							}
+							if(temp>i) System.out.println("ID not found");
+							break;
+					case 6: break;
+					default:System.out.println("Invalid choice!!");
+					}
+					}while(ch!=4);
+					break;
+			case 3 :do {
+					System.out.print("1.Add Project Manager\n2.Generate Pay Slip\n3.Leave Application\n4.View Details\n5.Edit details\n6.Back to main menu\nEnter your choice :");
+					ch=sc.nextInt();
+					switch(ch) {
+					case 1: if(i==100)
+								System.out.println("Sorry!! No more Project Managers can be added");
+							else {
+									pm[k]=new ProjectManager();
+									k++;
+									break;
+								}
+					case 2: System.out.print("Enter Employee ID :");
+							id=sc.nextDouble();
+							for(temp=0;temp<=k;temp++) {
+								if(pm[temp].check(id)) {
+									pm[temp].calc();
+									pm[temp].paySlip();
+									break;
+								}
+							}
+							if(temp>i) System.out.println("ID not found");
+							break;
+					case 3:	System.out.print("Enter Employee ID :");
+							id=sc.nextDouble();
+							for(temp=0;temp<=i;temp++) {
+								if(pm[temp].check(id)) {
+									pm[temp].Leave();
+									break;
+								}
+							}
+							if(temp>i) System.out.println("ID not found");
+							break;
+					case 4: System.out.print("Enter Employee ID :");
+							id=sc.nextDouble();
+							for(temp=0;temp<=i;temp++) {
+								if(p[temp].check(id)) {
+									p[temp].view();
+									break;
+								}
+							}
+							if(temp>i) System.out.println("ID not found");
+							break;
+					case 5: System.out.print("Enter Employee ID :");
+							id=sc.nextDouble();
+							for(temp=0;temp<=i;temp++) {
+								if(p[temp].check(id)) {
+									p[temp].edit();
+									break;
+								}
+							}
+							if(temp>i) System.out.println("ID not found");
+							break;
+					case 6: break;
+					default:System.out.println("Invalid choice!!");
+					}
+					}while(ch!=6);
+					break;
+			case 4 :do {
+					System.out.print("1.Add Assistant Project Manager\n2.Generate Pay Slip\n3.Leave Application\n4.Back to main menu\nEnter your choice :");
+					ch=sc.nextInt();
+					switch(ch) {
+					case 1: if(i==100)
+								System.out.println("Sorry!! No more Assistant Project Managers can be added");
+							else {
+									apm[l]=new AssistantProjectManager();
+									l++;
+									break;
+								}
+					case 2: System.out.print("Enter Employee ID :");
+							id=sc.nextDouble();
+							for(temp=0;temp<=l;temp++) {
+								if(apm[temp].check(id)) {
+									apm[temp].calc();
+									apm[temp].paySlip();
+									break;
+								}
+							}
+							if(temp>i) System.out.println("ID not found");
+							break;
+					case 3:	System.out.print("Enter Employee ID :");
+							id=sc.nextDouble();
+							for(temp=0;temp<=i;temp++) {
+								if(apm[temp].check(id)) {
+									apm[temp].Leave();
+									break;
+								}
+							}
+							if(temp>i) System.out.println("ID not found");
+							break;
+					case 4: break;
+					default:System.out.println("Invalid choice!!");
+					}
+					}while(ch!=4);
+					break;
+			case 5: break;
+			default:System.out.println("Invalid choice");
+			}
+		}while(choice!=5);
+	}
+}

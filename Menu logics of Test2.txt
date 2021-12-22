@@ -1,0 +1,177 @@
+Sales and Management Menu
+*********************************************Action Performed logic*********************************************************
+
+		else if(e.getSource()==ps && (s1==1 || m1==1)){
+			ps.setVisible(false);vd.setVisible(false);ed.setVisible(false);la.setVisible(false);vl.setVisible(false);
+			ps1=1;
+			if(s1==1){
+				sl[temp].calc();
+				sl[temp].view_sal();
+			}
+			else {
+				mg[temp].calc();
+				mg[temp].view_sal();
+			}
+		}
+		else if(e.getSource()==vd && (s1==1 || m1==1)){
+			vd1=1;
+			ps.setVisible(false);vd.setVisible(false);ed.setVisible(false);la.setVisible(false);vl.setVisible(false);
+			if(s1==1){
+				sl[temp].details(this);
+			}
+			else {
+				mg[temp].details(this);
+			}
+			bk.setVisible(true);
+		}
+		else if(e.getSource()==ed && (s1==1 || m1==1)){
+			ed1=1;
+			System.out.println("Edit details presses ed1="+ed1);
+			ps.setVisible(false);vd.setVisible(false);ed.setVisible(false);la.setVisible(false);vl.setVisible(false);
+
+			n1.setVisible(true);n.setVisible(true); mid.setVisible(true);mid1.setVisible(true); add.setVisible(true);add1.setVisible(true); pnl1.setVisible(true);pn1.setVisible(true); pnl2.setVisible(true);pn2.setVisible(true); eid1.setVisible(true);eid.setVisible(true); dept1.setVisible(true);dept.setVisible(true);
+			bk.setVisible(true);b.setVisible(true);
+		}
+		else if(e.getSource()==la && (s1==1 || m1==1)){
+			la1=1;
+			ps.setVisible(false);vd.setVisible(false);ed.setVisible(false);la.setVisible(false);vl.setVisible(false);
+			lt.setVisible(true);nd1.setVisible(true);nd.setVisible(true);
+			if(s1==1){
+			}
+			else {
+			}
+		}
+		else if(e.getSource()==vl && (s1==1 || m1==1)){
+			vl1=1;
+			ps.setVisible(false);vd.setVisible(false);ed.setVisible(false);la.setVisible(false);vl.setVisible(false);
+			if(s1==1){
+				sl[temp].view_leave();
+			}
+			else {
+				mg[temp].view_leave();
+			}
+		}
+		else if(e.getSource()==ep && (s1==1 || m1==1)){
+			ep1=1;
+			ps.setVisible(false);vd.setVisible(false);ed.setVisible(false);la.setVisible(false);vl.setVisible(false);
+
+			pw1.setVisible(true);pw.setVisible(true);
+			bk.setVisible(true);b.setVisible(true);
+		}
+		else if(e.getSource()==cp && (s1==1 || m1==1)){
+			cp1=1;
+			ps.setVisible(false);vd.setVisible(false);ed.setVisible(false);la.setVisible(false);vl.setVisible(false);
+			if(s1==1){
+				sl[temp].view_pass(this);
+			}
+			else {
+				mg[temp].view_pass(this);
+			}
+		}
+		else if(e.getSource()==lo && (s1==1 || m1==1)){
+			ps.setVisible(false);vd.setVisible(false);ed.setVisible(false);la.setVisible(false);vl.setVisible(false);mb.setVisible(false);note.setVisible(false);
+			s.setVisible(true);m.setVisible(true);ad.setVisible(true);
+			if(s1==1){
+				
+				s1=0;
+			}
+			else {
+				m1=0;
+			}
+		}
+
+
+*************************************Submit Button of Sales & Manage Menu***************************************************
+
+		else if(e.getSource()==b && (ed1==1 || la1==1 || ep1==1) && si1==1){
+			if(ed1==1){
+				System.out.println("Edit details code in execution");
+				no1=Double.parseDouble(pn1.getText());
+				no2=Double.parseDouble(pn2.getText());
+
+				n1.setVisible(false);n.setVisible(false); mid.setVisible(false);mid1.setVisible(false); add.setVisible(false);add1.setVisible(false); pnl1.setVisible(false);pn1.setVisible(false); pnl2.setVisible(false);pn2.setVisible(false); eid1.setVisible(false);eid.setVisible(false); dept1.setVisible(false);dept.setVisible(false); b.setVisible(false);
+				bk.setVisible(true);
+				if(s1==1){
+					id=Double.parseDouble(eid.getText());
+					sl[temp].edit_details(this);
+				}
+				else if(m1==1){
+					id=Double.parseDouble(eid.getText());
+					mg[temp].edit_details(this);
+					System.out.println("Condition accepted!!");
+				}
+			}
+			else if(la1==1){
+				if(s1==1){
+					sl[temp].leave();
+				}
+				else{
+					mg[temp].leave();
+				}
+			}
+			else if(ep1==1){
+				pass=pw.getText();
+				pw1.setVisible(false);pw.setVisible(false);b.setVisible(false);
+				bk.setVisible(true);
+				if(s1==1){
+					sl[temp].edit_pass();
+				}
+				else{
+					mg[temp].edit_pass();
+				}
+			}
+		}
+
+*************************************Back Button For Sales & MAnage*********************************************************
+
+else if(e.getSource()==bk && (a1 == 1 || s1 == 1 || m1 == 1) && si1 == 1 &&(ps1==1 || vd1==1 || ed1==1 || la1==1 || vl1==1 || cp1==1 || ep1==1)) {
+			// Hide
+			if(ps1==1){
+
+			}
+			else if(vd1==1){
+				n1.setVisible(false);
+				n1.setText("Name:");
+				mid1.setVisible(false);
+				mid1.setText("Mail-ID:");
+				add1.setVisible(false);
+				add1.setText("Address:");
+				pnl1.setVisible(false);
+				pnl1.setText("Contact No.1");
+				pnl2.setVisible(false);
+				pnl2.setText("Contact No.2");
+				eid1.setVisible(false);
+				eid1.setText("ID:");
+				dept1.setVisible(false);
+				dept1.setText("Department:");
+				vd1=0;
+			}
+			else if(ed1==1){
+				n1.setVisible(false);
+				mid1.setVisible(false);
+				add1.setVisible(false);
+				pnl1.setVisible(false);
+				pnl2.setVisible(false);
+				eid1.setVisible(false);
+				dept1.setVisible(false);
+				ed1=0;
+			}
+			else if(la1==1){
+				
+			}
+			else if(vl1==1){
+
+			}
+			else if(cp1==1){
+				pw1.setVisible(false);
+				pw1.setText("Password:");
+				cp1=0;
+			}
+			else if(ep1==1){
+				pw1.setVisible(false);pw.setVisible(false);b.setVisible(false);
+				ep1=0;
+			}
+			// Visible
+			ps.setVisible(true);vd.setVisible(true);ed.setVisible(true);la.setVisible(true);vl.setVisible(true);cp.setVisible(true);ep.setVisible(true);
+		}
+
